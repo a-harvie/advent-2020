@@ -8,6 +8,12 @@ import (
 	"github.com/a-harvie/advent-2020/input"
 )
 
+type day3Input [][]bool
+type slope struct {
+	X int
+	Y int
+}
+
 func main() {
 	testInput, err := input.ReadInputFileLines("./input_test")
 	if err != nil {
@@ -25,18 +31,18 @@ func main() {
 	fmt.Printf("Day 2 Part 1 Test: %v\n", day3Part1Solution(parsedTestInput, slope{3, 1}))
 	fmt.Printf("Day 2 Part 1 Real: %v\n", day3Part1Solution(parsedInput, slope{3, 1}))
 
-	slopeList := []slope{
+	part2SlopeList := []slope{
 		{1, 1},
 		{3, 1},
 		{5, 1},
 		{7, 1},
 		{1, 2},
 	}
-	testProduct := day3Part2Solution(parsedTestInput, slopeList)
-	realProduct := day3Part2Solution(parsedInput, slopeList)
+	part2test := day3Part2Solution(parsedTestInput, part2SlopeList)
+	part2real := day3Part2Solution(parsedInput, part2SlopeList)
 
-	fmt.Printf("Day 2 Part 2 Test: %v\n", testProduct)
-	fmt.Printf("Day 2 Part 2 Real: %v\n", realProduct)
+	fmt.Printf("Day 2 Part 2 Test: %v\n", part2test)
+	fmt.Printf("Day 2 Part 2 Real: %v\n", part2real)
 }
 
 func day3Part1Solution(input day3Input, s slope) int {
@@ -64,12 +70,6 @@ func day3Part2Solution(input day3Input, slopeList []slope) int {
 		product *= day3Part1Solution(input, s)
 	}
 	return product
-}
-
-type day3Input [][]bool
-type slope struct {
-	X int
-	Y int
 }
 
 func parseDay3Input(input []string) day3Input {
