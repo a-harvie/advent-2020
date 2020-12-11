@@ -37,11 +37,10 @@ func day10Part1Solution(jolts []int) int {
 
 func day10Part2Solution(jolts []int) int {
 	jolts = normalize(jolts)
-	diffs := getDiffs(jolts)
 	combos := 1
 	ones := 0
-	for i := 0; i < len(diffs); i++ {
-		switch diffs[i] {
+	for i := 0; i < len(jolts)-1; i++ {
+		switch d := jolts[i+1] - jolts[i]; d {
 		case 1:
 			ones++
 		case 3:
@@ -71,14 +70,6 @@ func getCombos(len int) int {
 	default:
 		return getCombos(len-1) + getCombos(len-2) + getCombos(len-3)
 	}
-}
-
-func getDiffs(ints []int) []int {
-	diffs := make([]int, 0)
-	for i := 0; i < len(ints)-1; i++ {
-		diffs = append(diffs, ints[i+1]-ints[i])
-	}
-	return diffs
 }
 
 func getDay10Input(filePath string) []int {
