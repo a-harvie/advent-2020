@@ -63,3 +63,24 @@ func ReadInputCSInts(filePath string) ([]int, error) {
 	}
 	return output, nil
 }
+
+// ReadStringChunks is a slice of slices of strings split by the splitter
+func ReadStringChunks(filePath string, splitter string) ([][]string, error) {
+	input, err := ReadInputFileLines(filePath)
+	if err != nil {
+		return [][]string{}, err
+	}
+	split := make([][]string, 0)
+	currSlice := make([]string, 0)
+	for _, str := range input {
+		if str == splitter {
+			split = append(split, currSlice)
+			currSlice = make([]string, 0)
+			continue
+		}
+		currSlice = append(currSlice, str)
+	}
+	split = append(split, currSlice)
+
+	return split, nil
+}
